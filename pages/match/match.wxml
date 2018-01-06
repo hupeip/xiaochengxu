@@ -1,0 +1,124 @@
+<!--pages/match/match.wxml-->
+<view class='container'>
+  <view class='header'>
+    <image class='img banner' src="../../images/result_banner.jpg" background-size="cover" mode="widthFix"></image>
+  </view>
+  <view class='wrapper'>
+    <view class='info-block'>
+      <view class='info-box'>
+        <view class='info-img info-left'>
+          <image bindtap="bindViewTap" class="info-avatar" src="{{metchData.self_avatar}}" background-size="cover"></image>
+          <view class='wechat-name'>{{metchData.self_name}}</view>
+        </view>
+        <view class='info-center'>
+          <view class='out-circle'></view>
+          <view class='inner-circle'></view>
+          <view class='rotate'>
+            <image class='img rotate-img' src="../../images/rotate.png" background-size="cover"></image>
+            <view class='match-box'>
+              <view class='score'>{{metchData.score}}%</view>
+              <view class='degree'>匹配度</view>
+            </view>              
+          </view>
+        </view>
+        <view class='info-img info-right'>
+          <image bindtap="bindViewTap" class="info-avatar" src="{{metchData.other_avatar}}" background-size="cover"></image>
+          <view class='wechat-name'>{{metchData.other_name}}</view>
+        </view>
+      </view>
+      <view class='result-title'>
+        <view class='result-text'><image class='img quo-img' src="../../images/quotation.png"></image></view>
+        <view class='result-text text-box'>
+          <text>{{metchData.title}}</text>
+          <view class='cone cone-top'><image class='img cone-img' src="../../images/cone.png"></image></view>
+          <view class='cone cone-right'><image class='img cone-img' src="../../images/cone.png"></image></view>
+          <view class='cone cone-bottom'><image class='img cone-img' src="../../images/cone.png"></image></view>
+          <view class='cone cone-left'><image class='img cone-img' src="../../images/cone.png"></image></view>
+        </view>
+        <view class='result-text'><image class='img quo-img quo-img-right' src="../../images/quotation.png"></image></view>
+      </view>
+      <view class='flower'>
+        <image class='flower-img' src="../../images/flower.png" background-size="cover" mode="widthFix"></image>
+      </view>
+    </view>
+
+    <view class='block-box'>
+      <view class='tips-block'>
+        <view class='tips'>
+          <view>准备好合盘预测了吗？</view>
+          <view>我是灵机首席预言官<text class='tip-name'>应采儿</text>，</view>
+          <view>现在开始预测你们的2018运势~</view>
+        </view>
+        <view class='big-avatar'>
+          <image class="img big-caier" src="../../images/caier.png"></image>
+        </view>
+      </view>
+      <view class='common-block' style="background-color: rgba(148, 122, 109, .2)">
+        <view class='title title-2'>你们的2018运势标签</view>
+        <view class='label-block'>
+          <view class="line line-center">
+            <view><text class='label-text label1'>{{metchData.result.tag[0]}}</text><text class='label-text label2'>{{metchData.result.tag[1]}}</text></view>
+          </view>
+          <view class="line line-center">
+            <view><text class='label-text label3'>{{metchData.result.tag[2]}}</text></view>
+          </view>
+          <view class="line line-center">
+            <view><text class='label-text label4'>{{metchData.result.tag[3]}}</text><text class='label-text label5'>{{metchData.result.tag[4]}}</text></view>
+          </view>
+        </view>
+      </view>
+      <view class='common-block relation-block' style="background-color: rgba(235, 122, 119, .3)">
+        <view class='title title-4'>你们的2018关系指数</view>
+        <view class='relation'>
+          <!-- <view class='relation-text r-text'>感情纠缠</view>
+          <view class='exponent-box'>
+            <text class='relation-text l-text'>贵人潜质</text>
+            <image class='exponent' src="../../images/exponent_bg.png" background-size="cover" mode="widthFix"></image>
+            <text class='relation-text l-text'>损友潜质</text>
+            <view class='index-box'> -->
+              <canvas canvas-id="radarCanvas" disable-scroll="true" class="canvas"></canvas>
+            <!-- </view> 
+          </view> 
+          <view class='relation-text r-text'>金钱纠葛</view>          -->
+          <view class='score-box'>
+            <view class='outer' wx:for="{{score}}" wx:key="index">
+              <view class='inner inner{{index}}' style="width: {{item.num}}%"></view>
+              <view class='remark'>{{item.name}}：{{item.num}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='common-block' style="background-color: rgba(255, 117, 27, .3)">
+        <view class='title title-5'>你们的2018缘分分析</view>
+        <view class='common-text'>{{metchData.result.content}}</view>
+      </view>
+      <view class='common-block' style="background-color: rgba(148, 122, 109, .1)">
+        <view class='title title-6'>2018，这些朋友旺你，快去问候一下吧~</view>
+        <view class='friend-list' wx:for="{{list.lists}}" wx:key="{{index}}" data-logid="{{item.log_id}}" data-orderid="{{item.order_id}}" bindtap="gotoRelation">
+            <view class='friend-img'><image class="friend-img" src="{{item.other_avatar}}"></image></view>
+            <view class='friend-center'>
+              <view class='friend-name'>{{item.other_name}}</view>
+              <view class='friend-mark'>{{item.title}}</view>
+            </view>
+            <view class='friend-right'>
+              <view class='firend-num'>{{item.score}}%</view>
+              <view class="firend-text">匹配度</view>
+            </view>
+            <view class='arrow'><image class='arrow-img' src="../../images/arrow_right.png"></image></view>
+          </view>
+      </view>
+      <view class='common-block bottom-block' style="background-color: rgba(148, 122, 109, .2)">
+        <view class='bottom-left'>
+          <image class='s-caier-img' src="../../images/s-caier.png" background-size="cover" mode="widthFix"></image>
+        </view>
+        <view class='bottom-center'>
+          <view class='big-title'>原来命理还能这么玩！！！</view>
+          <view class='small-text'>更多新奇、好玩测算尽在灵机妙算</view>
+        </view>
+        <view class='bottom-right'><view>立即</view><view>测算</view></view>
+      </view>
+    </view>
+  </view>
+
+  <view class='footer'>一键撩友，邂逅你的“山鸡哥” ></view>
+</view>

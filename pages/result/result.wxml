@@ -1,0 +1,114 @@
+<!--pages/result/result.wxml-->
+<view class='container'>
+  <view class='header'>
+    <image class='img banner' src="../../images/result_banner.jpg" background-size="cover" mode="widthFix"></image>
+  </view>
+  <view class='wrapper'>
+    <view class='info-block'>
+      <view class='info-left'>
+        <image bindtap="bindViewTap" class="info-avatar" src="{{resultData.avatar}}" background-size="cover"></image>
+      </view>
+      <view class='info-right'>
+        <view><text class='label'>姓名：</text><text>{{resultData.name}}</text></view>  
+        <view><text class='label'>公历生日：</text>
+          <text>{{resultData.result.solar_time[0]}}年{{resultData.result.solar_time[1]}}月{{resultData.result.solar_time[2]}}日</text>
+        </view>  
+        <view><text class='label'>农历生日：</text>
+          <text>{{resultData.result.lunar_time[0]}}年{{resultData.result.lunar_time[1]}}月{{resultData.result.lunar_time[2]}}日</text>
+        </view>        
+      </view>
+      <view class='flower'>
+        <image class='flower-img' src="../../images/flower.png" background-size="cover" mode="widthFix"></image>
+      </view>
+    </view>
+
+    <view class='block-box'>
+      <view class='tips-block'>
+        <view class='tips'>
+          <view>Hi，新年好~</view>
+          <view>我是灵机首席体验官<text class='tip-name'>应采儿</text>，</view>
+          <view>现在开始预测你的2018运势哦~</view>
+        </view>
+        <view class='big-avatar'>
+          <image class="img big-caier" src="../../images/caier.png"></image>
+        </view>
+      </view>
+      <view class='common-block block-{{resultData.result.lucky_color_code}}'>
+        <view class='title title-1 title-{{resultData.result.lucky_color_code}}'>你的2018幸运色“采”</view>
+        <view class='color-box'>
+          <image class='color-img' src="{{resultData.result.lucky_color_img}}" background-size="cover" mode="widthFix"></image>
+        </view>
+        <view class='common-text'>{{resultData.result.lucky_luck}}</view>
+      </view>
+      <view class='common-block' style="background-color: rgba(148, 122, 109, .2)">
+        <view class='title title-2'>你的2018运势标签</view>
+        <view class='label-block'>
+          <view class="line line-center">
+            <text class='label-text label1'>{{resultData.result.tag[0]}}</text><text class='label-text label2'>{{resultData.result.tag[1]}}</text>
+          </view>
+          <view class="line line-right">
+            <text class='label-text label3'>{{resultData.result.tag[2]}}</text><text class='label-text label4'>{{resultData.result.tag[3]}}</text>
+          </view>
+          <view class="line line-left">
+            <text class='label-text label5'>{{resultData.result.tag[4]}}</text><text class='label-text label6'>{{resultData.result.tag[5]}}</text>
+          </view>
+          <view class="line line-center">
+            <text class='label-text label7'>{{resultData.result.tag[6]}}</text><text class='label-text label8'>{{resultData.result.tag[7]}}</text>
+          </view>
+        </view>
+      </view>
+      <view class='common-block' style="background-color: rgba(255, 177, 27, .3)">
+        <view class='title title-3'>你的2018财运</view>
+        <view class='common-text'>{{resultData.result.money_luck}}</view>
+      </view>
+      <view class='common-block' style="background-color: rgba(235, 122, 119, .3)">
+        <view class='title title-4'>你的2018桃花</view>
+        <view class='common-text'>{{resultData.result.love_luck}}</view>
+      </view>
+      <view class='common-block' style="background-color: rgba(110, 117, 164, .3)">
+        <view class='title title-5'>你的2018事业</view>
+        <view class='common-text'>{{resultData.result.work_luck}}</view>
+      </view>
+      <view class='common-block' style="background-color: rgba(148, 122, 109, .1)">
+        <view class='title title-6'>2018，这些朋友旺你，快去问候一下吧~</view>
+        <view wx:if="{{list.lists.length === 0}}">
+          <view class='null-block'>
+            <image class='null-img' src="../../images/null.png" background-size="cover" mode="widthFix"></image>
+          </view>
+          <view class='null-text'>
+            <view>空空的！一个人好寂寞</view>
+            <view>快邀请朋友来看看谁和你的关系最亲密？</view>
+            <view>谁是最佳拍档？谁是最佳损友？</view>
+          </view>
+          <view class='share-btn'>向你的homie发射一枚好彩头 ></view>
+        </view>
+        <view wx:else>
+          <view class='friend-list' wx:for="{{list.lists}}" wx:key="{{index}}" data-logid="{{item.log_id}}" data-orderid="{{item.order_id}}" bindtap="gotoRelation">
+            <view class='friend-img'><image class="friend-img" src="{{item.other_avatar}}"></image></view>
+            <view class='friend-center'>
+              <view class='friend-name'>{{item.other_name}}</view>
+              <view class='friend-mark'>{{item.title}}</view>
+            </view>
+            <view class='friend-right'>
+              <view class='firend-num'>{{item.score}}%</view>
+              <view class="firend-text">匹配度</view>
+            </view>
+            <view class='arrow'><image class='arrow-img' src="../../images/arrow_right.png"></image></view>
+          </view>
+        </view>
+        
+      </view>
+      <view class='common-block bottom-block' bindtap='gotoTouch' style="background-color: rgba(148, 122, 109, .2)">
+        <view class='bottom-left'>
+          <image class='s-caier-img' src="../../images/s-caier.png" background-size="cover" mode="widthFix"></image>
+        </view>
+        <view class='bottom-center'>
+          <view class='big-title'>原来命理还能这么玩！！！</view>
+          <view class='small-text'>更多新奇、好玩测算尽在灵机妙算</view>
+        </view>
+        <view class='bottom-right'><view>立即</view><view>测算</view></view>
+      </view>
+    </view>
+  </view>
+  <view class='footer'>一键撩友，邂逅你的“山鸡哥” ></view>
+</view>
