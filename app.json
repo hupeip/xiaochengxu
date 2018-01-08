@@ -5,12 +5,13 @@
     "pages/share/share",
     "pages/match/match",
     "pages/touch/touch",
+    "pages/newyear/newyear",
     "pages/logs/logs"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "应采儿邀您体验新年运",
+    "navigationBarTitleText": "应采儿邀您体验新年运势",
     "navigationBarTextStyle":"black"
   }
 }

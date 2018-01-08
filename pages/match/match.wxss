@@ -208,59 +208,37 @@
   border-radius: 20rpx;
   padding: 25rpx 20rpx;
 }
-.relation {
-     /* text-align: center;    */
-}
-/* .exponent {
-  width: 400rpx;
-  height: 400rpx;
-  margin: 0 15rpx;
-}
-.relation-text {
-  color: #383030;
-  font-size: 30rpx;
-}
-.r-text {
-  padding: 15rpx 0;
-}
-.l-text {
-  display: inline-block;
-   height: 400rpx;
-  line-height: 400rpx; 
-  vertical-align:top;
-}
-.exponent-box {
-  position: relative;
-}
-.index-box {
-  position: absolute;  
-  text-align: left;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 400rpx;
-} */
 .canvas {
   display: inline-block; 
   width: 680rpx;
   height: 500rpx;
   z-index: 888;
 }
-
+.score-box {
+  display: flex;
+  padding: 0 30rpx 100rpx;
+}
 .outer {
-  background-color: #ddbdbb;
+  /* background-color: #ddbdbb; */
   display: inline-block;
-  width: 270rpx;
-  height: 50rpx;
-  border-radius: 50rpx;
+  width: 80rpx;
+  height: 420rpx;
+  border-radius: 8rpx;
   position: relative;
-  margin: 5rpx 25rpx;
+  padding-right: 85rpx;
+}
+.outer-4 {
+  padding-right: 20rpx;
 }
 .inner {
-  width: 60%;
-  height: 50rpx;
+  width: 80rpx;
+  height: 60%;
   background-color: #ff3e65;
-  border-radius: 50rpx;
+  border-radius: 8rpx;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 .inner1 {
   background-color: #764a6b;
@@ -273,12 +251,9 @@
 }
 .remark {
   position: absolute;
-  width: 100%;
-  height: 50rpx;
-  line-height: 50rpx;
-  top: 0;
+  bottom: -100rpx;
+  left: -20rpx;
   font-size: 30rpx;
-  color: #fff;
   text-align: center;
 }
 
@@ -350,7 +325,7 @@
 }
 .big-avatar {
   position: absolute;
-  top: -13rpx;
+  bottom: 0;
   left: 35rpx;
 }
 .big-caier {

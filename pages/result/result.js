@@ -100,7 +100,12 @@ Page({
   },
   gotoTouch() {    
     wx.navigateTo({
-      url: `../touch/touch?order_id=${this.data.order_id}`
+      url: '../touch/touch'
+    })
+  },
+  gotoShare() {
+    wx.navigateTo({
+      url: `../share/share?order_id=${this.data.order_id}`
     })
   },
 

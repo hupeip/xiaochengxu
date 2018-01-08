@@ -42,13 +42,7 @@ Page({
         }
         this.getOpenId(res.code)
       }
-    })    
-    // if (order_id) {
-    //   // info = Object.assign(info, { order_id: order_id });
-    //   wx.redirectTo({
-    //     url: '../result/result'
-    //   })
-    // }
+    })
   },
   onLoad: function(options) {
     console.log('load')
@@ -98,18 +92,23 @@ Page({
         }else {
           console.log('scene不等于order_id')
           // 去缓存里面查找有没有曾经匹配过
+          var status = true
           origin.forEach((item, index) => {
             // 已经创建过关系
             if (item == scene) {
-              wx.redirectTo({
-                url: '../result/result'
-              })
+              status = false
               return
             }
           })
-          console.log('sdsdsdsss')
-          const info = Object.assign(user, { origin_order_id: scene });
-          this.submitHandler(info)
+          if(status) {
+            const info = Object.assign(user, { origin_order_id: scene });
+            this.submitHandler(info)
+          } else {
+            wx.redirectTo({
+              url: '../result/result'
+            })
+          }
+          
         }
       } else {
         wx.redirectTo({

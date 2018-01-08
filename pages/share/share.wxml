@@ -1,5 +1,5 @@
 <!--pages/share/share.wxml-->
-  <view class='container'>
+  <!-- <view class='container'>
     <view class='header'>
       <image class='img banner' src="../../images/share_banner.jpg" background-size="cover" mode="widthFix"></image>
     </view>
@@ -37,6 +37,7 @@
         <view class='bottom-text' bindtap="tapImg">长按保存图片，可发送给朋友</view>
       </view>
     </view>
-  </view>  
+  </view>   -->
+  <web-view src="{{url}}"></web-view>
 
 

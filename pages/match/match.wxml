@@ -4,49 +4,51 @@
     <image class='img banner' src="../../images/result_banner.jpg" background-size="cover" mode="widthFix"></image>
   </view>
   <view class='wrapper'>
-    <view class='info-block'>
-      <view class='info-box'>
-        <view class='info-img info-left'>
-          <image bindtap="bindViewTap" class="info-avatar" src="{{metchData.self_avatar}}" background-size="cover"></image>
-          <view class='wechat-name'>{{metchData.self_name}}</view>
-        </view>
-        <view class='info-center'>
-          <view class='out-circle'></view>
-          <view class='inner-circle'></view>
-          <view class='rotate'>
-            <image class='img rotate-img' src="../../images/rotate.png" background-size="cover"></image>
-            <view class='match-box'>
-              <view class='score'>{{metchData.score}}%</view>
-              <view class='degree'>匹配度</view>
-            </view>              
+    <scroll-view >
+      <view class='info-block'>
+        <view class='info-box'>
+          <view class='info-img info-left'>
+            <image bindtap="bindViewTap" class="info-avatar" src="{{metchData.self_avatar}}" background-size="cover"></image>
+            <view class='wechat-name'>{{metchData.self_name}}</view>
+          </view>
+          <view class='info-center'>
+            <view class='out-circle'></view>
+            <view class='inner-circle'></view>
+            <view class='rotate'>
+              <image class='img rotate-img' src="../../images/rotate.png" background-size="cover"></image>
+              <view class='match-box'>
+                <view class='score'>{{metchData.score}}%</view>
+                <view class='degree'>匹配度</view>
+              </view>              
+            </view>
+          </view>
+          <view class='info-img info-right'>
+            <image bindtap="bindViewTap" class="info-avatar" src="{{metchData.other_avatar}}" background-size="cover"></image>
+            <view class='wechat-name'>{{metchData.other_name}}</view>
           </view>
         </view>
-        <view class='info-img info-right'>
-          <image bindtap="bindViewTap" class="info-avatar" src="{{metchData.other_avatar}}" background-size="cover"></image>
-          <view class='wechat-name'>{{metchData.other_name}}</view>
+        <view class='result-title'>
+          <view class='result-text'><image class='img quo-img' src="../../images/quotation.png"></image></view>
+          <view class='result-text text-box'>
+            <text>{{metchData.title}}</text>
+            <view class='cone cone-top'><image class='img cone-img' src="../../images/cone.png"></image></view>
+            <view class='cone cone-right'><image class='img cone-img' src="../../images/cone.png"></image></view>
+            <view class='cone cone-bottom'><image class='img cone-img' src="../../images/cone.png"></image></view>
+            <view class='cone cone-left'><image class='img cone-img' src="../../images/cone.png"></image></view>
+          </view>
+          <view class='result-text'><image class='img quo-img quo-img-right' src="../../images/quotation.png"></image></view>
+        </view>
+        <view class='flower'>
+          <image class='flower-img' src="../../images/flower.png" background-size="cover" mode="widthFix"></image>
         </view>
       </view>
-      <view class='result-title'>
-        <view class='result-text'><image class='img quo-img' src="../../images/quotation.png"></image></view>
-        <view class='result-text text-box'>
-          <text>{{metchData.title}}</text>
-          <view class='cone cone-top'><image class='img cone-img' src="../../images/cone.png"></image></view>
-          <view class='cone cone-right'><image class='img cone-img' src="../../images/cone.png"></image></view>
-          <view class='cone cone-bottom'><image class='img cone-img' src="../../images/cone.png"></image></view>
-          <view class='cone cone-left'><image class='img cone-img' src="../../images/cone.png"></image></view>
-        </view>
-        <view class='result-text'><image class='img quo-img quo-img-right' src="../../images/quotation.png"></image></view>
-      </view>
-      <view class='flower'>
-        <image class='flower-img' src="../../images/flower.png" background-size="cover" mode="widthFix"></image>
-      </view>
-    </view>
+    </scroll-view>
 
     <view class='block-box'>
       <view class='tips-block'>
         <view class='tips'>
           <view>准备好合盘预测了吗？</view>
-          <view>我是灵机首席预言官<text class='tip-name'>应采儿</text>，</view>
+          <view>我是灵机首席体验官<text class='tip-name'>应采儿</text>，</view>
           <view>现在开始预测你们的2018运势~</view>
         </view>
         <view class='big-avatar'>
@@ -76,14 +78,20 @@
             <image class='exponent' src="../../images/exponent_bg.png" background-size="cover" mode="widthFix"></image>
             <text class='relation-text l-text'>损友潜质</text>
             <view class='index-box'> -->
-              <canvas canvas-id="radarCanvas" disable-scroll="true" class="canvas"></canvas>
+            <!-- <view class="relation-list">
+
+            </view> -->
+              <!-- <canvas canvas-id="radarCanvas" disable-scroll="true" class="canvas"></canvas> -->
             <!-- </view> 
           </view> 
           <view class='relation-text r-text'>金钱纠葛</view>          -->
           <view class='score-box'>
-            <view class='outer' wx:for="{{score}}" wx:key="index">
-              <view class='inner inner{{index}}' style="width: {{item.num}}%"></view>
-              <view class='remark'>{{item.name}}：{{item.num}}</view>
+            <view class='outer outer-{{index + 1}}' wx:for="{{score}}" wx:key="index">
+              <view class='inner inner{{index}}' style="height: {{item.num}}%"></view>
+              <view class='remark'>
+                <view >{{item.name}}</view>
+                <view>{{item.num}}</view>
+              </view>              
             </view>
           </view>
         </view>
@@ -111,7 +119,7 @@
         <view class='bottom-left'>
           <image class='s-caier-img' src="../../images/s-caier.png" background-size="cover" mode="widthFix"></image>
         </view>
-        <view class='bottom-center'>
+        <view class='bottom-center' bindtap='gotoTouch'>
           <view class='big-title'>原来命理还能这么玩！！！</view>
           <view class='small-text'>更多新奇、好玩测算尽在灵机妙算</view>
         </view>
@@ -120,5 +128,5 @@
     </view>
   </view>
 
-  <view class='footer'>一键撩友，邂逅你的“山鸡哥” ></view>
+  <view class='footer' bindtap='toNewYear'>迎好运，查看2018灵机好运节></view>
 </view>

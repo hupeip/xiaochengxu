@@ -110,5 +110,5 @@
       </view>
     </view>
   </view>
-  <view class='footer'>一键撩友，邂逅你的“山鸡哥” ></view>
+  <view class='footer' bindtap='gotoShare'>一键撩友，邂逅你的“山鸡哥” ></view>
 </view>

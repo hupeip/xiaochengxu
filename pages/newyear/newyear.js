@@ -1,42 +1,32 @@
-// pages/share/share.js
-
-//获取应用实例
-const app = getApp()
-// import '../../utils/img.js'
-
+// pages/newyear/newyear.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    userInfo: {},
-    height: '',
-    markData: [
-      '人艰不拆当自强', '人艰不拆当自强', '人艰不拆当自强', '人艰不拆当自强', '人艰不拆当自强', '人艰不拆当自强', '人艰不拆当自强'
-    ],
-    url: ''
+  
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      url: `https://newyear.linghit.com/2018/newyearluck?order_id=${options.order_id}`
-    })
+  
   },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+  
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+  
   },
 
   /**

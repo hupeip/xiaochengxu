@@ -36,6 +36,16 @@ Page({
     this.getMatchInfo(options.log_id, options.order_id)
     this.getLogs(options.order_id)
   },
+  toNewYear() {
+    wx.redirectTo({
+      url: '../newyear/newyear'
+    })
+  },
+  gotoTouch() {
+    wx.navigateTo({
+      url: '../touch/touch'
+    })
+  },
   gotoRelation(event) {
     const order_id = event.currentTarget.dataset.orderid
     const log_id = event.currentTarget.dataset.logid
