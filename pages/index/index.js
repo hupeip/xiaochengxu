@@ -12,10 +12,28 @@ Page({
     date: '请选择出生日期',
     code: '',
     user: '',
-    uid: wx.getStorageSync('openid') || '',
     scene: '',
     order_id: '',
     info: ''
+  },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    var path = '/pages/index/index'
+    if (this.data.order_id ) {
+      path = `${path}?scene=${this.data.order_id}`
+    }
+    return {
+      title: '应采儿邀您体验新年运势',
+      path: path,
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
   },
   //事件处理函数
   bindViewTap: function() {
@@ -54,11 +72,11 @@ Page({
   // 获取openid
   getOpenId(code) {
     wx.showLoading({
-      title: '获取openid',
+      title: '请稍候..',
     })
-    console.log(`https://sandbox-yingcaier-applet.linghit.com/api/v1/uid/${code}`)
+    console.log(`https://yingcaier-applet.linghit.com/api/v1/uid/${code}`)
     wx.request({
-      url: `https://sandbox-yingcaier-applet.linghit.com/api/v1/uid/${code}`,
+      url: `https://yingcaier-applet.linghit.com/api/v1/uid/${code}`,
       method: 'GET',
       data: {
         mina: 'YCAI'
@@ -118,7 +136,7 @@ Page({
     } else {
       if (wx.getStorageSync('openid')) {
         wx.request({
-          url: 'https://sandbox-yingcaier-applet.linghit.com/api/v1/orders',
+          url: 'https://yingcaier-applet.linghit.com/api/v1/orders',
           method: 'GET',
           data: {
             uid: wx.getStorageSync('openid')
@@ -160,10 +178,10 @@ Page({
   // 下单
   submitHandler(info) {   
     wx.showLoading({
-      title: '下单',
+      title: '请稍候...',
     })
     wx.request({
-      url: 'https://sandbox-yingcaier-applet.linghit.com/api/v1/orders',
+      url: 'https://yingcaier-applet.linghit.com/api/v1/orders',
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -173,6 +191,9 @@ Page({
         wx.hideLoading()
         wx.setStorageSync('order_id', res.data.order_id)
         wx.setStorageSync('user', res.data)
+        this.setData({
+          order_id: res.data.order_id
+        })
         wx.redirectTo({
           url: '../result/result'
         })

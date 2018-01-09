@@ -20,12 +20,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow: function () {
-    console.log('show')
     const order_id = wx.getStorageSync('order_id') || ''
+    const result = wx.getStorageSync('result') || ''
     this.setData({
       order_id: order_id
     })
-    this.getResult(order_id)
+    if ( result.order_id ) {
+      this.setData({
+        resultData: result
+      })
+    } else {
+      this.getResult(order_id)
+    }  
     this.getLogs(order_id)
   },
   // 获取结果数据
@@ -34,7 +40,7 @@ Page({
       title: '请稍等',
     })
     wx.request({
-      url: `https://sandbox-yingcaier-applet.linghit.com/api/v1/orders/${order_id}/result`,
+      url: `https://yingcaier-applet.linghit.com/api/v1/orders/${order_id}/result`,
       method: 'GET',
       success: (res) => {
         wx.hideLoading()
@@ -50,13 +56,14 @@ Page({
         this.setData({
           resultData: result
         })
+        wx.setStorageSync('result', result)
       }
     })
   },
   // 获取好友匹配记录
   getLogs(order_id) {
     wx.request({
-      url: `https://sandbox-yingcaier-applet.linghit.com/api/v1/orders/${order_id}/log`,
+      url: `https://yingcaier-applet.linghit.com/api/v1/orders/${order_id}/log`,
       method: 'GET',
       data: {
         order_id: order_id,
@@ -67,7 +74,7 @@ Page({
         const result = res.data
         if (result.msg) {
           wx.showToast({
-            title: result.msg,
+            title: '请求匹配列表失败',
             duration: 2000,
             image: '../../images/toast-icon.png'
           })

@@ -1,5 +1,5 @@
 // pages/match/match.js
-const wxCharts = require('../../utils/wxcharts.js');
+// const wxCharts = require('../../utils/wxcharts.js');
 Page({
 
   /**
@@ -56,7 +56,7 @@ Page({
   // 获取好友匹配记录 
   getLogs(order_id) {
     wx.request({
-      url: `https://sandbox-yingcaier-applet.linghit.com/api/v1/orders/${order_id}/log`,
+      url: `https://yingcaier-applet.linghit.com/api/v1/orders/${order_id}/log`,
       method: 'GET',
       data: {
         order_id: order_id,
@@ -85,7 +85,7 @@ Page({
       title: '加载中',
     })
     wx.request({
-      url: `https://sandbox-yingcaier-applet.linghit.com/api/v1/orders/${order_id}/log/${log_id}`,
+      url: `https://yingcaier-applet.linghit.com/api/v1/orders/${order_id}/log/${log_id}`,
       method: 'GET',
       success: (res) => {
         wx.hideLoading()
@@ -105,26 +105,26 @@ Page({
           'score[2].num': parseInt(match.result.money_num * 100, 10),
           'score[3].num': parseInt(match.result.bad_num * 100, 10),
         })
-        new wxCharts({
-          animation: true, //是否有动画
-          canvasId: 'radarCanvas',
-          type: 'radar',
-          background: '#ffffff',
-          categories: ['感情纠缠', '损友潜质', '金钱纠葛', '贵人潜质'],
-          series: [{
-            name: '关系指数',
-            data: [match.result.love_num * 100, match.result.bad_num * 100, match.result.money_num * 100, match.result.good_num * 100]
-          }],
-          width: 300,
-          height: 250,
-          extra: {
-            radar: {
-              max: 100,
-              labelColor: '#383030',
-              gridColor: '#ffffff'
-            }
-          }
-        }); 
+        // new wxCharts({
+        //   animation: true, //是否有动画
+        //   canvasId: 'radarCanvas',
+        //   type: 'radar',
+        //   background: '#ffffff',
+        //   categories: ['感情纠缠', '损友潜质', '金钱纠葛', '贵人潜质'],
+        //   series: [{
+        //     name: '关系指数',
+        //     data: [match.result.love_num * 100, match.result.bad_num * 100, match.result.money_num * 100, match.result.good_num * 100]
+        //   }],
+        //   width: 300,
+        //   height: 250,
+        //   extra: {
+        //     radar: {
+        //       max: 100,
+        //       labelColor: '#383030',
+        //       gridColor: '#ffffff'
+        //     }
+        //   }
+        // }); 
       }
     })
   },
