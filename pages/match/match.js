@@ -36,6 +36,28 @@ Page({
     this.getMatchInfo(options.log_id, options.order_id)
     this.getLogs(options.order_id)
   },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    var path = '/pages/index/index'
+    const order_id = wx.getStorageSync('order_id')
+    if (order_id) {
+      path = `${path}?scene=${order_id}`
+    }
+    return {
+      title: '应采儿邀您体验2018新年运势',
+      path: path,
+      imageUrl: '../../images/share_banner.jpg',
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
+  },
   toNewYear() {
     wx.redirectTo({
       url: '../newyear/newyear'
@@ -56,7 +78,7 @@ Page({
   // 获取好友匹配记录 
   getLogs(order_id) {
     wx.request({
-      url: `https://yingcaier-applet.linghit.com/api/v1/orders/${order_id}/log`,
+      url: `https://newyear.shunli66.com/api/v1/orders/${order_id}/log`,
       method: 'GET',
       data: {
         order_id: order_id,
@@ -85,7 +107,7 @@ Page({
       title: '加载中',
     })
     wx.request({
-      url: `https://yingcaier-applet.linghit.com/api/v1/orders/${order_id}/log/${log_id}`,
+      url: `https://newyear.shunli66.com/api/v1/orders/${order_id}/log/${log_id}`,
       method: 'GET',
       success: (res) => {
         wx.hideLoading()
@@ -105,75 +127,7 @@ Page({
           'score[2].num': parseInt(match.result.money_num * 100, 10),
           'score[3].num': parseInt(match.result.bad_num * 100, 10),
         })
-        // new wxCharts({
-        //   animation: true, //是否有动画
-        //   canvasId: 'radarCanvas',
-        //   type: 'radar',
-        //   background: '#ffffff',
-        //   categories: ['感情纠缠', '损友潜质', '金钱纠葛', '贵人潜质'],
-        //   series: [{
-        //     name: '关系指数',
-        //     data: [match.result.love_num * 100, match.result.bad_num * 100, match.result.money_num * 100, match.result.good_num * 100]
-        //   }],
-        //   width: 300,
-        //   height: 250,
-        //   extra: {
-        //     radar: {
-        //       max: 100,
-        //       labelColor: '#383030',
-        //       gridColor: '#ffffff'
-        //     }
-        //   }
-        // }); 
       }
     })
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
   }
 })

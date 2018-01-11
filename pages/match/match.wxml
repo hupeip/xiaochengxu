@@ -2,47 +2,48 @@
 <view class='container'>
   <view class='header'>
     <image class='img banner' src="../../images/result_banner.jpg" background-size="cover" mode="widthFix"></image>
+    <view class='logo'>
+      <image class='img logo-img' src="../../images/top_logo.png" background-size="cover" mode="widthFix"></image>
+    </view>
   </view>
   <view class='wrapper'>
-    <scroll-view >
-      <view class='info-block'>
-        <view class='info-box'>
-          <view class='info-img info-left'>
-            <image bindtap="bindViewTap" class="info-avatar" src="{{metchData.self_avatar}}" background-size="cover"></image>
-            <view class='wechat-name'>{{metchData.self_name}}</view>
-          </view>
-          <view class='info-center'>
-            <view class='out-circle'></view>
-            <view class='inner-circle'></view>
-            <view class='rotate'>
-              <image class='img rotate-img' src="../../images/rotate.png" background-size="cover"></image>
-              <view class='match-box'>
-                <view class='score'>{{metchData.score}}%</view>
-                <view class='degree'>匹配度</view>
-              </view>              
-            </view>
-          </view>
-          <view class='info-img info-right'>
-            <image bindtap="bindViewTap" class="info-avatar" src="{{metchData.other_avatar}}" background-size="cover"></image>
-            <view class='wechat-name'>{{metchData.other_name}}</view>
+    <view class='info-block'>
+      <view class='info-box'>
+        <view class='info-img info-left'>
+          <image bindtap="bindViewTap" class="info-avatar" src="{{metchData.self_avatar}}" background-size="cover"></image>
+          <view class='wechat-name'>{{metchData.self_name}}</view>
+        </view>
+        <view class='info-center'>
+          <view class='out-circle'></view>
+          <view class='inner-circle'></view>
+          <view class='rotate'>
+            <image class='img rotate-img' src="../../images/rotate.png" background-size="cover"></image>
+            <view class='match-box'>
+              <view class='score'>{{metchData.score}}%</view>
+              <view class='degree'>匹配度</view>
+            </view>              
           </view>
         </view>
-        <view class='result-title'>
-          <view class='result-text'><image class='img quo-img' src="../../images/quotation.png"></image></view>
-          <view class='result-text text-box'>
-            <text>{{metchData.title}}</text>
-            <view class='cone cone-top'><image class='img cone-img' src="../../images/cone.png"></image></view>
-            <view class='cone cone-right'><image class='img cone-img' src="../../images/cone.png"></image></view>
-            <view class='cone cone-bottom'><image class='img cone-img' src="../../images/cone.png"></image></view>
-            <view class='cone cone-left'><image class='img cone-img' src="../../images/cone.png"></image></view>
-          </view>
-          <view class='result-text'><image class='img quo-img quo-img-right' src="../../images/quotation.png"></image></view>
-        </view>
-        <view class='flower'>
-          <image class='flower-img' src="../../images/flower.png" background-size="cover" mode="widthFix"></image>
+        <view class='info-img info-right'>
+          <image bindtap="bindViewTap" class="info-avatar" src="{{metchData.other_avatar}}" background-size="cover"></image>
+          <view class='wechat-name'>{{metchData.other_name}}</view>
         </view>
       </view>
-    </scroll-view>
+      <view class='result-title'>
+        <view class='result-text'><image class='img quo-img' src="../../images/quotation.png"></image></view>
+        <view class='result-text text-box'>
+          <text>{{metchData.title}}</text>
+          <view class='cone cone-top'><image class='img cone-img' src="../../images/cone.png"></image></view>
+          <view class='cone cone-right'><image class='img cone-img' src="../../images/cone.png"></image></view>
+          <view class='cone cone-bottom'><image class='img cone-img' src="../../images/cone.png"></image></view>
+          <view class='cone cone-left'><image class='img cone-img' src="../../images/cone.png"></image></view>
+        </view>
+        <view class='result-text'><image class='img quo-img quo-img-right' src="../../images/quotation.png"></image></view>
+      </view>
+      <view class='flower'>
+        <image class='flower-img' src="../../images/flower.png" background-size="cover" mode="widthFix"></image>
+      </view>
+    </view>
 
     <view class='block-box'>
       <view class='tips-block'>

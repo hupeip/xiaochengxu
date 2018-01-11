@@ -13,7 +13,29 @@ Page({
     resultData: '',
     list: '',
     order_id: '',
-    ewm: ''
+    ewm: '',
+    timestamp: Date.parse(new Date()) / 1000
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    var path = '/pages/index/index'
+    if (this.data.order_id) {
+      path = `${path}?scene=${this.data.order_id}`
+    }
+    return {
+      title: '应采儿邀您体验2018新年运势',
+      path: path,
+      imageUrl: '../../images/share_banner.jpg',
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
   },
 
   /**
@@ -21,14 +43,21 @@ Page({
    */
   onShow: function () {
     const order_id = wx.getStorageSync('order_id') || ''
-    const result = wx.getStorageSync('result') || ''
+    const result = wx.getStorageSync('result') || {}
     this.setData({
       order_id: order_id
     })
-    if ( result.order_id ) {
-      this.setData({
-        resultData: result
-      })
+    const test = this.data.timestamp - result.timestamp
+    // 先从缓存拿结果数据，如果缓存大于一天，则重新获取结果
+    if (result.order_id) {
+      const test = this.data.timestamp - result.timestamp
+      if (test <= 86400) {
+        this.setData({
+          resultData: result
+        })
+      } else {
+        this.getResult(order_id)
+      }
     } else {
       this.getResult(order_id)
     }  
@@ -40,7 +69,7 @@ Page({
       title: '请稍等',
     })
     wx.request({
-      url: `https://yingcaier-applet.linghit.com/api/v1/orders/${order_id}/result`,
+      url: `https://newyear.shunli66.com/api/v1/orders/${order_id}/result`,
       method: 'GET',
       success: (res) => {
         wx.hideLoading()
@@ -56,14 +85,15 @@ Page({
         this.setData({
           resultData: result
         })
-        wx.setStorageSync('result', result)
+        const resultData = Object.assign(result, { timestamp: this.data.timestamp })
+        wx.setStorageSync('result', resultData)
       }
     })
   },
   // 获取好友匹配记录
   getLogs(order_id) {
     wx.request({
-      url: `https://yingcaier-applet.linghit.com/api/v1/orders/${order_id}/log`,
+      url: `https://newyear.shunli66.com/api/v1/orders/${order_id}/log`,
       method: 'GET',
       data: {
         order_id: order_id,
@@ -117,13 +147,6 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
    * 生命周期函数--监听页面显示
    */
   onLoad: function () {
@@ -158,11 +181,4 @@ Page({
   onReachBottom: function () {
   
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

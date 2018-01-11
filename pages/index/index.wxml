@@ -11,12 +11,12 @@
     <text class="user-motto">{{motto}}</text>
   </view>  -->
   <view class="wrapper">
-     <image class='img-bg' src="https://s103.ggwan.com/yingcaier/img/index_bg.jpg" background-size="cover" mode="widthFix"></image> 
+     <image class='img-bg' src="../../images/index_bg.jpg" background-size="cover" mode="widthFix"></image> 
     <view class="tips">
       <image class="animate-tip" src="../../images/index_tips.png" background-size="cover" mode="widthFix"></image>
     </view>
     <view class="animate-act">
-      <image class="animate-img" src="https://s103.ggwan.com/yingcaier/img/index-act.gif"></image>
+      <image class="animate-img" src="../../images/index-act.gif"></image>
     </view>
     <view class="bottom-block">
       <view class="text-block">

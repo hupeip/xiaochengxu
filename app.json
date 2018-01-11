@@ -5,8 +5,7 @@
     "pages/share/share",
     "pages/match/match",
     "pages/touch/touch",
-    "pages/newyear/newyear",
-    "pages/logs/logs"
+    "pages/newyear/newyear"
   ],
   "window":{
     "backgroundTextStyle":"light",

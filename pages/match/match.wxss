@@ -3,6 +3,18 @@
 .img{
    display: block;
 }
+.header {
+  position: relative;
+}
+.logo {
+  position: absolute;
+  top: 0;
+  left: 30rpx;
+}
+.logo-img {
+  width: 144rpx;
+  height: 68rpx;
+}
 .banner{
   width: 750rpx; 
   height: 124rpx;
@@ -138,6 +150,7 @@
 }
 .result-title {
   text-align: center;
+  margin-top: 15rpx;
 }
 .result-text {
   display: inline-block;
@@ -208,15 +221,9 @@
   border-radius: 20rpx;
   padding: 25rpx 20rpx;
 }
-.canvas {
-  display: inline-block; 
-  width: 680rpx;
-  height: 500rpx;
-  z-index: 888;
-}
 .score-box {
   display: flex;
-  padding: 0 30rpx 100rpx;
+  padding: 0 0 100rpx 40rpx;
 }
 .outer {
   /* background-color: #ddbdbb; */

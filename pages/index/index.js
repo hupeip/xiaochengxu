@@ -6,7 +6,6 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     date: '请选择出生日期',
@@ -14,7 +13,8 @@ Page({
     user: '',
     scene: '',
     order_id: '',
-    info: ''
+    info: '',
+    userInfo: ''
   },
   /**
    * 用户点击右上角分享
@@ -25,8 +25,9 @@ Page({
       path = `${path}?scene=${this.data.order_id}`
     }
     return {
-      title: '应采儿邀您体验新年运势',
+      title: '应采儿邀您体验2018新年运势',
       path: path,
+      imageUrl: '../../images/share_banner.jpg',
       success: function (res) {
         // 转发成功
       },
@@ -42,13 +43,15 @@ Page({
     })
   },
   onShow: function () {
-    console.log('show')
     const order_id = wx.getStorageSync('order_id')
     this.setData({
       order_id: order_id
     })
     const userInfo = app.globalData.userInfo;
     // 登录
+    this.login()
+  },
+  login() {
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -63,8 +66,15 @@ Page({
     })
   },
   onLoad: function(options) {
-    console.log('load')
-    const scene = options.scene || ''
+    console.log('scene' + options.scene)
+    let scene = ''
+    if (options.scene == undefined) {
+      scene = wx.getStorageSync('scene') || ''
+    } else {
+      scene = options.scene
+    }
+    console.log('scene' + scene)
+    wx.setStorageSync('scene', scene)
     this.setData({
       scene: scene
     })
@@ -74,9 +84,8 @@ Page({
     wx.showLoading({
       title: '请稍候..',
     })
-    console.log(`https://yingcaier-applet.linghit.com/api/v1/uid/${code}`)
     wx.request({
-      url: `https://yingcaier-applet.linghit.com/api/v1/uid/${code}`,
+      url: `https://newyear.shunli66.com/api/v1/uid/${code}`,
       method: 'GET',
       data: {
         mina: 'YCAI'
@@ -100,15 +109,16 @@ Page({
     const origin = wx.getStorageSync('origin_list') || []
     const user = wx.getStorageSync('user') || ''
     const order_id = wx.getStorageSync('order_id') || ''
-    const scene = this.data.scene   
+    const scene = this.data.scene
+    // 先判断自己有没有下过单
     if (order_id) {
+      // 如果下过单，就去看链接上有没有带来源id
       if (scene) {
         if (order_id == scene) {
           wx.redirectTo({
             url: '../result/result'
           })
         }else {
-          console.log('scene不等于order_id')
           // 去缓存里面查找有没有曾经匹配过
           var status = true
           origin.forEach((item, index) => {
@@ -118,8 +128,10 @@ Page({
               return
             }
           })
+          console.log('status:' + status)
           if(status) {
             const info = Object.assign(user, { origin_order_id: scene });
+            console.log(info)
             this.submitHandler(info)
           } else {
             wx.redirectTo({
@@ -136,7 +148,7 @@ Page({
     } else {
       if (wx.getStorageSync('openid')) {
         wx.request({
-          url: 'https://yingcaier-applet.linghit.com/api/v1/orders',
+          url: 'https://newyear.shunli66.com/api/v1/orders',
           method: 'GET',
           data: {
             uid: wx.getStorageSync('openid')
@@ -160,16 +172,6 @@ Page({
       }      
     }
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    console.log(e.detail.userInfo)
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  },
-
   bindDateChange: function (e) {
     this.setData({
       'date': e.detail.value
@@ -181,7 +183,7 @@ Page({
       title: '请稍候...',
     })
     wx.request({
-      url: 'https://yingcaier-applet.linghit.com/api/v1/orders',
+      url: 'https://newyear.shunli66.com/api/v1/orders',
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -209,30 +211,64 @@ Page({
       })
       return false;
     }
-    const userInfo = app.globalData.userInfo;
-    const time = tools.formatDate(this.data.date); 
-    const scene = this.data.scene  
-    console.log('openidwwwww' + wx.getStorageSync('openid'))
-    var info = {
-      date: time,
-      name: userInfo.nickName,
-      avatar: userInfo.avatarUrl,
-      mina: 'YCAI',
-      uid: wx.getStorageSync('openid'),
+    // this.openSetting()
+    if (wx.getStorageSync('authorize') == 0) {
+      wx.showModal({
+        title: '授权提示',
+        content: '需要您的微信授权才能开启新年运哦~',
+        success: (res) => {
+          if (res.confirm) {
+            this.openSetting()
+          }          
+        }
+      })
+    } else {
+      // 获取用户信息
+      const userInfo = this.data.userInfo || app.globalData.userInfo;
+      const time = tools.formatDate(this.data.date);
+      const scene = this.data.scene
+      console.log(userInfo.avatarUrl)
+      var info = {
+        date: time,
+        name: userInfo.nickName,
+        avatar: userInfo.avatarUrl,
+        mina: 'YCAI',
+        uid: wx.getStorageSync('openid'),
+      }
+      if (scene) {
+        info = Object.assign(info, { origin_order_id: scene })
+      }
+      this.setData({
+        info: info
+      })
+      this.submitHandler(info)
     }
-    if (scene) {
-      info = Object.assign(info, { origin_order_id: scene })
+  },
+  // 再次授权
+  openSetting () {
+    var that = this
+    if (wx.openSetting) {
+      wx.openSetting({
+        success: (res) => {
+          wx.getUserInfo({
+            success: res => {
+              console.log('12345' + res.userInfo)
+              that.setData({
+                userInfo: res.userInfo
+              })
+              // 授权之后将authorize设为1
+              wx.setStorageSync('authorize', 1)
+              //尝试再次下单
+              that.openLuck()
+            }
+          })
+        }
+      })
+    } else {
+      wx.showModal({
+        title: '授权提示',
+        content: '小程序需要您的微信授权才能使用哦~ 错过授权页面的处理方法：删除小程序->重新搜索进入->点击授权按钮'
+      })
     }
-    this.setData({
-      info: info
-    })
-    this.submitHandler(info)
-
-    // openid.then((data) => {
-    //   info = Object.assign(info, data);
-    //   this.setData({
-    //     user: info
-    //   })
-    // }).then(this.submitHandler)
   }
 })

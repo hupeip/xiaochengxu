@@ -2,6 +2,18 @@
 .img{
    display: block;
 }
+.header {
+  position: relative;
+}
+.logo {
+  position: absolute;
+  top: 0;
+  left: 30rpx;
+}
+.logo-img {
+  width: 144rpx;
+  height: 68rpx;
+}
 .banner{
   width: 750rpx; 
   height: 124rpx;
@@ -336,7 +348,6 @@
   padding-top: 10rpx;
   margin-top: 15rpx;
 }
-
 .footer {
   height: 88rpx;
   background-color: #f8c13f;

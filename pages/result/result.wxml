@@ -2,6 +2,7 @@
 <view class='container'>
   <view class='header'>
     <image class='img banner' src="../../images/result_banner.jpg" background-size="cover" mode="widthFix"></image>
+    <view class='logo'><image class='img logo-img' src="../../images/top_logo.png" background-size="cover" mode="widthFix"></image></view>
   </view>
   <view class='wrapper'>
     <view class='info-block'>
@@ -37,7 +38,7 @@
         <view class='title title-1 title-{{resultData.result.lucky_color_code}}'>你的2018幸运色“采”</view>
         <view class='color-box'>
           <image class='color-img' src="{{resultData.result.lucky_color_img}}" background-size="cover" mode="widthFix"></image>
-        </view>
+        </view>  
         <view class='common-text'>{{resultData.result.lucky_luck}}</view>
       </view>
       <view class='common-block' style="background-color: rgba(148, 122, 109, .2)">
@@ -80,7 +81,7 @@
             <view>快邀请朋友来看看谁和你的关系最亲密？</view>
             <view>谁是最佳拍档？谁是最佳损友？</view>
           </view>
-          <view class='share-btn'>向你的homie发射一枚好彩头 ></view>
+          <view class='share-btn' bindtap='gotoShare'>向你的homie发射一枚好彩头 ></view>
         </view>
         <view wx:else>
           <view class='friend-list' wx:for="{{list.lists}}" wx:key="{{index}}" data-logid="{{item.log_id}}" data-orderid="{{item.order_id}}" bindtap="gotoRelation">
