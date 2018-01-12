@@ -36,28 +36,26 @@ Page({
       }
     }
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
   onShow: function () {
+    this.setData({
+      height: wx.getSystemInfoSync().windowHeight
+    })
     const order_id = wx.getStorageSync('order_id')
     this.setData({
       order_id: order_id
     })
-    const userInfo = app.globalData.userInfo;
     // 登录
     this.login()
   },
   login() {
+    wx.showLoading({
+      title: '登录中..',
+    })
     wx.login({
       success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        wx.hideLoading()
         const openid = wx.getStorageSync('openid')
         if (openid) {
-          console.log('openid:存在' + openid)
           this.checkScene()
           return
         }
@@ -66,14 +64,12 @@ Page({
     })
   },
   onLoad: function(options) {
-    console.log('scene' + options.scene)
     let scene = ''
     if (options.scene == undefined) {
       scene = wx.getStorageSync('scene') || ''
     } else {
       scene = options.scene
     }
-    console.log('scene' + scene)
     wx.setStorageSync('scene', scene)
     this.setData({
       scene: scene
@@ -97,7 +93,6 @@ Page({
           uid: res.data.uid
         })
         this.checkScene()
-        console.log('openid:获取成功' + res.data.uid)
       },
       fail: (err) => {
         wx.hideLoading()
@@ -107,7 +102,7 @@ Page({
   },
   checkScene() {
     const origin = wx.getStorageSync('origin_list') || []
-    const user = wx.getStorageSync('user') || ''
+    const user = wx.getStorageSync('user') || {}
     const order_id = wx.getStorageSync('order_id') || ''
     const scene = this.data.scene
     // 先判断自己有没有下过单
@@ -121,17 +116,17 @@ Page({
         }else {
           // 去缓存里面查找有没有曾经匹配过
           var status = true
-          origin.forEach((item, index) => {
-            // 已经创建过关系
-            if (item == scene) {
-              status = false
-              return
-            }
-          })
-          console.log('status:' + status)
+          if(origin.length > 0) {
+            origin.forEach((item, index) => {
+              // 已经创建过关系
+              if (item == scene) {
+                status = false
+                return
+              }
+            })
+          }          
           if(status) {
             const info = Object.assign(user, { origin_order_id: scene });
-            console.log(info)
             this.submitHandler(info)
           } else {
             wx.redirectTo({
@@ -211,7 +206,6 @@ Page({
       })
       return false;
     }
-    // this.openSetting()
     if (wx.getStorageSync('authorize') == 0) {
       wx.showModal({
         title: '授权提示',
@@ -224,10 +218,9 @@ Page({
       })
     } else {
       // 获取用户信息
-      const userInfo = this.data.userInfo || app.globalData.userInfo;
+      const userInfo = this.data.userInfo || app.globalData.userInfo || {};
       const time = tools.formatDate(this.data.date);
       const scene = this.data.scene
-      console.log(userInfo.avatarUrl)
       var info = {
         date: time,
         name: userInfo.nickName,
@@ -252,7 +245,6 @@ Page({
         success: (res) => {
           wx.getUserInfo({
             success: res => {
-              console.log('12345' + res.userInfo)
               that.setData({
                 userInfo: res.userInfo
               })

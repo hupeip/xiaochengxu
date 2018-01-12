@@ -104,7 +104,7 @@ Page({
   // 获取匹配信息
   getMatchInfo(log_id, order_id) {
     wx.showLoading({
-      title: '加载中',
+      title: '加载中...',
     })
     wx.request({
       url: `https://newyear.shunli66.com/api/v1/orders/${order_id}/log/${log_id}`,

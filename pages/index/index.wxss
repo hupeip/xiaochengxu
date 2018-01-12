@@ -1,7 +1,11 @@
 /**index.wxss**/
+.container {
+  overflow: hidden;
+}
 .wrapper{
    position: relative; 
    width: 100%;
+   overflow: hidden;
 }
  .img-bg{
    width: 100%;
@@ -78,12 +82,12 @@
   top: 0;
 }
 .bottom-block{
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  height: 312rpx;
+  height: 320rpx;
   width: 100%;
   background: rgba(198, 15, 71, .9);
-  border-radius: 100rpx 100rpx 0 0;
+  border-radius: 70rpx 70rpx 0 0;
 }
 .text-block{
   color: #fff;
@@ -92,14 +96,14 @@
   padding: 20rpx 0;
 }
 .btn-block{
-  position: absolute;
+   position: absolute; 
   bottom: 0;
   width: 100%;
   text-align: center;
-  height: 87rpx;
-  line-height: 87rpx;
+  height: 100rpx;
+  line-height: 100rpx;
   background-color: #f8c13f;
-  border-bottom: 4rpx #7f492e solid;
+  /* border-bottom: 4rpx #7f492e solid; */
   font-size: 34rpx;
   color: #383030;
 }

@@ -10,6 +10,7 @@ Page({
    */
   data: {
     userInfo: {},
+    gender: 2,
     resultData: '',
     list: '',
     order_id: '',
@@ -42,12 +43,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow: function () {
+    wx.getUserInfo({
+      success: res => {
+        this.setData({
+          gender: res.userInfo.gender
+        })
+      }
+    })
     const order_id = wx.getStorageSync('order_id') || ''
     const result = wx.getStorageSync('result') || {}
     this.setData({
       order_id: order_id
     })
-    const test = this.data.timestamp - result.timestamp
     // 先从缓存拿结果数据，如果缓存大于一天，则重新获取结果
     if (result.order_id) {
       const test = this.data.timestamp - result.timestamp
@@ -66,7 +73,7 @@ Page({
   // 获取结果数据
   getResult(order_id) {
     wx.showLoading({
-      title: '请稍等',
+      title: '正在解锁，请稍候...',
     })
     wx.request({
       url: `https://newyear.shunli66.com/api/v1/orders/${order_id}/result`,

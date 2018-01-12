@@ -21,13 +21,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "测试",
 					"pathName": "pages/index/index",
-					"query": "scene=YCAI151565944000000080",
+					"query": "scene=YCAI151574698000000040",
 					"scene": "1012"
 				}
 			]
