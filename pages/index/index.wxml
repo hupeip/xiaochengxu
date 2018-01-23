@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container" style="height: {{height}}px">
   <view class="wrapper">
-     <image class='img-bg' src="../../images/index_bg.jpg" background-size="cover" mode="widthFix"></image> 
+    <image class='img-bg' src="../../images/index_bg.jpg" background-size="cover" mode="widthFix"></image> 
     <view class="tips">
       <image class="animate-tip" src="../../images/index_tips.png" background-size="cover" mode="widthFix"></image>
     </view>
@@ -24,9 +24,9 @@
           </picker>
         </view>
       </view>   
-      <view class="btn-block" bindtap="openLuck">
+      <button class="btn-block" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
         立即开启2018新年运 >
-      </view> 
+      </button> 
     </view>
   </view>
 </view>
