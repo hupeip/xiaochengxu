@@ -310,6 +310,9 @@
   border-bottom: 8rpx solid #d0104c;
   margin-bottom: 90rpx;
 }
+.status {
+  margin-bottom: 0;
+}
 .tips-block {
   box-sizing: border-box;
   padding: 35rpx 0 30rpx 220rpx;

@@ -9,13 +9,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    status: 1,
     userInfo: {},
     gender: 2,
     resultData: '',
     list: '',
     order_id: '',
     ewm: '',
-    timestamp: Date.parse(new Date()) / 1000
+    timestamp: Date.parse(new Date()) / 1000,
   },
 
   /**
@@ -43,6 +44,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow: function () {
+    this.getStatus()
     wx.getUserInfo({
       success: res => {
         this.setData({
@@ -120,6 +122,19 @@ Page({
         this.originStorage(result.lists)
         this.setData({
           list: result
+        })
+      }
+    })
+  },
+
+  // 获取模块开启状态
+  getStatus() {
+    wx.request({
+      url: `https://newyear.shunli66.com/api/v1/new_year_action/status`,
+      method: 'GET',
+      success: (res) => {
+        this.setData({
+          status: res.data.status
         })
       }
     })

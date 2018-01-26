@@ -45,7 +45,7 @@
       </view>
     </view>
 
-    <view class='block-box'>
+    <view class="block-box {{status == 0 ? 'status' : ''}}">
       <view class='tips-block'>
         <view class='tips'>
           <view>准备好合盘预测了吗？</view>
@@ -116,18 +116,18 @@
             <view class='arrow'><image class='arrow-img' src="../../images/arrow_right.png"></image></view>
           </view>
       </view>
-      <view class='common-block bottom-block' style="background-color: rgba(148, 122, 109, .2)">
+      <view wx:if="{{status == 1}}" class='common-block bottom-block' style="background-color: rgba(148, 122, 109, .2)">
         <view class='bottom-left'>
           <image class='s-caier-img' src="../../images/s-caier.png" background-size="cover" mode="widthFix"></image>
         </view>
         <view class='bottom-center' bindtap='gotoTouch'>
-          <view class='big-title'>原来命理还能这么玩！！！</view>
-          <view class='small-text'>更多新奇、好玩测算尽在灵机妙算</view>
+          <view class='big-title'>绝密版运势宝典，隐藏在此</view>
+          <view class='small-text'>更多新奇、专业测算尽在灵机妙算</view>
         </view>
         <view class='bottom-right'><view>立即</view><view>测算</view></view>
       </view>
     </view>
   </view>
 
-  <view class='footer' bindtap='toNewYear'>迎好运，查看2018灵机好运节></view>
+  <view wx:if="{{status == 1}}" class='footer' bindtap='toNewYear'>迎好运，查看2018灵机好运节></view>
 </view>

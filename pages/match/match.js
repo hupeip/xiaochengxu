@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    status: 1,
     metchData: '',
     list: '',
     score: [
@@ -33,6 +34,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getStatus()
     this.getMatchInfo(options.log_id, options.order_id)
     this.getLogs(options.order_id)
   },
@@ -129,5 +131,18 @@ Page({
         })
       }
     })
-  }
+  },
+
+  // 获取模块开启状态
+  getStatus() {
+    wx.request({
+      url: `https://newyear.shunli66.com/api/v1/new_year_action/status`,
+      method: 'GET',
+      success: (res) => {
+        this.setData({
+          status: res.data.status
+        })
+      }
+    })
+  },
 })

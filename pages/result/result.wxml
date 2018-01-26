@@ -99,13 +99,13 @@
         </view>
         
       </view>
-      <view class='common-block bottom-block' bindtap='gotoTouch' style="background-color: rgba(148, 122, 109, .2)">
+      <view wx:if="{{status == 1}}" class='common-block bottom-block' bindtap='gotoTouch' style="background-color: rgba(148, 122, 109, .2)">
         <view class='bottom-left'>
           <image class='s-caier-img' src="../../images/s-caier.png" background-size="cover" mode="widthFix"></image>
         </view>
         <view class='bottom-center'>
-          <view class='big-title'>原来命理还能这么玩！！！</view>
-          <view class='small-text'>更多新奇、好玩测算尽在灵机妙算</view>
+          <view class='big-title'>绝密版运势宝典，隐藏在此</view>
+          <view class='small-text'>更多新奇、专业测算尽在灵机妙算</view>
         </view>
         <view class='bottom-right'><view>立即</view><view>测算</view></view>
       </view>
